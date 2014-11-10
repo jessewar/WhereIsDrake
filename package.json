@@ -1,0 +1,18 @@
+{
+  "name": "WhereIsDrake",
+  "description": "A application that allows you to find out where Drake is at all times",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessewar/WhereIsDrake"
+  }
+}
