@@ -24,7 +24,7 @@ app.get('/twitter', function(request, response) {
 });
 
 app.get('/concert', function(req,res) {
-var str ='';
+var drakes_tour ='';
   var options = {
         host: 'api.songkick.com',
         path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
@@ -33,48 +33,25 @@ var str ='';
    callback = function(response) {
 
         response.on('data', function (chunk) {
-              str += chunk;
+              drakes_tour+= chunk;
         });
 
         response.on('end', function () {
-              console.log(str);
+        	drakes_tour = JSON.parse(drakes_tour)
+        	//console.log(JSON.parse(drakes_tour))
+             console.log(drakes_tour.resultsPage.results.event[0].start.datetime);
+             console.log(drakes_tour.resultsPage.results.event[0].venue.displayName);
+             console.log(drakes_tour.resultsPage.results.event[0].location);
+;
+;
         });
 
         //return str;
   }
 
   var req = http.request(options, callback).end();
-
-  //console.log(req.data);
-  console.log(str);
 });
 
-
-app.get('/eventful', function(req,res) {
-var str ='';
-  var options = {
-        host: 'api.eventful.com',
-       // path: 'oauth/authorize?oauth_token=Vb2cx56jgZJtNH5h'
-       path: '/rest/events/?q=drake'
-  };
-
-   callback = function(response) {
-
-        response.on('data', function (chunk) {
-              str += chunk;
-        });
-
-        response.on('end', function () {
-              console.log(str);
-        });
-
-        //return str;
-  }
-
-  var req = http.request(options, callback).end();
-  //console.log(req.data);
-  console.log(str);
-});
 
 app.listen(app.get('port'), function() {
 console.log("Node app is running at localhost:" + app.get('.port'));
