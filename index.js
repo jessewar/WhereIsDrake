@@ -16,13 +16,11 @@ app.set('port', (process.env.PORT || 5000));
 
 app.get('/twitter', function(request, response) {
   response.send('Hello World!');
-  twitter.get('search/tweets', { q: 'drake', count: 10 }, function(err, data) {
+	twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 10 }, function(err, data) {
+    if (err) { console.log(err); }
     console.log(data);
-    console.log(err);
-    response.send("Jesse");
-    // response.send(data);
+    console.log(process.env.PORT);
   });
-  // response.send("here");
 });
 
 app.get('/concert', function(req,res) {
@@ -80,5 +78,6 @@ var str ='';
 });
 
 app.listen(app.get('port'), function() {
-console.log("Node app is running at localhost:" + app.get('port'));
+console.log("Node app is running at localhost:" + app.get('.port'));
 });
+
