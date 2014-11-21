@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var http = require('http');
 var twit = require('twit');
 
 var twitter = new twit({
@@ -13,27 +14,70 @@ var twitter = new twit({
 app.set('port', (process.env.PORT || 5000));
 //app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response) {
+app.get('/twitter', function(request, response) {
   response.send('Hello World!');
   twitter.get('search/tweets', { q: 'drake', count: 10 }, function(err, data) {
     console.log(data);
     console.log(err);
-    // response.send("Jesse");
+    response.send("Jesse");
     // response.send(data);
   });
-  response.send("here");
+  // response.send("here");
+});
+
+app.get('/concert', function(req,res) {
+var str ='';
+  var options = {
+        host: 'api.songkick.com',
+        path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
+  };
+
+   callback = function(response) {
+
+        response.on('data', function (chunk) {
+              str += chunk;
+        });
+
+        response.on('end', function () {
+              console.log(str);
+        });
+
+        //return str;
+  }
+
+  var req = http.request(options, callback).end();
+
+  //console.log(req.data);
+  console.log(str);
 });
 
 
-app.get('/', function(req,res) {
-	http.get("http://api.songkick.com/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW",function(request,response){
-  console.log("Got response: " + response.statusCode);
-  console.log(request)
-}).on('error', function(e) {
-  console.log("Got error: " + e.message);
-})
-});
+app.get('/eventful', function(req,res) {
+var str ='';
+  var options = {
+        host: 'api.eventful.com',
+       // path: 'oauth/authorize?oauth_token=Vb2cx56jgZJtNH5h'
+       path: '/rest/events/?q=drake'
+  };
 
+   callback = function(response) {
+
+        response.on('data', function (chunk) {
+              str += chunk;
+        });
+
+        response.on('end', function () {
+              console.log(str);
+        });
+
+        //return str;
+  }
+
+  var req = http.request(options, callback).end();
+
+  //console.log(req.data);
+  console.log(str);
+});
 
 app.listen(app.get('port'), function() {
 console.log("Node app is running at localhost:" + app.get('port'));
