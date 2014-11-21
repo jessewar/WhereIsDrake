@@ -72,7 +72,6 @@ var str ='';
   }
 
   var req = http.request(options, callback).end();
-
   //console.log(req.data);
   console.log(str);
 });
