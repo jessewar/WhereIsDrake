@@ -21,39 +21,44 @@ app.get('/twitter', function(request, response) {
     console.log(data);
     console.log(process.env.PORT);
   });
+
+
 });
 
-app.get('/concert', function(req,res) {
-var drakes_tour ='';
   var options = {
         host: 'api.songkick.com',
         path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
-  };
+          };
 
+app.get('/concert', function(req2,response) {
+    response.send('Concert Location') 
    callback = function(response) {
-
         response.on('data', function (chunk) {
               drakes_tour+= chunk;
         });
 
         response.on('end', function () {
+          var drakes_tour ='';
         	drakes_tour = JSON.parse(drakes_tour)
         	//console.log(JSON.parse(drakes_tour))
              console.log(drakes_tour.resultsPage.results.event[0].start.datetime);
              console.log(drakes_tour.resultsPage.results.event[0].venue.displayName);
              console.log(drakes_tour.resultsPage.results.event[0].location);
-;
-;
-        });
 
-        //return str;
-  }
+             });
+          }
 
-  var req = http.request(options, callback).end();
-});
+  var req = http.request(options, callback);
+
+    req.write('Concert Location');
+    req.end();
+
+   });
+
+
 
 
 app.listen(app.get('port'), function() {
-console.log("Node app is running at localhost:" + app.get('.port'));
+console.log("Node app is running at localhost:" + app.get('port'));
 });
 
