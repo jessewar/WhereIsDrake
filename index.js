@@ -2,6 +2,34 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var twit = require('twit');
+var stylus = require('stylus')
+var nib = require('nib')
+
+var app = express()
+
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .use(nib())
+}
+
+//Set the views directory
+app.set('views', __dirname + '/views')
+//Set the view engine as jase
+app.set('view engine', 'jade')
+//Set stylus as the middleware option
+app.use(stylus.middleware(
+  { src: __dirname + '/public'
+  , compile: compile
+  }
+))
+app.use(express.static(__dirname + '/public'))
+
+app.get('/', function (req, res) {
+  res.render('index',
+  { title : 'Home' }
+  )
+})
 
 var twitter = new twit({
   consumer_key: 'TwNjohtHnx2becRqgycPzX1hH',
