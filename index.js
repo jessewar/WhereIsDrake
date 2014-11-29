@@ -29,34 +29,33 @@ app.get('/twitter', function(request, response) {
         host: 'api.songkick.com',
         path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
           };
+  var drakes_tour ='';
+var tour_date = '';
+var tour_name = '';
+var tour_location = '';
 
-app.get('/concert', function(req2,response) {
-    response.send('Concert Location') 
+app.get('/concert', function(req2,response2) {
+     
    callback = function(response) {
         response.on('data', function (chunk) {
               drakes_tour+= chunk;
         });
 
         response.on('end', function () {
-          var drakes_tour ='';
         	drakes_tour = JSON.parse(drakes_tour)
         	//console.log(JSON.parse(drakes_tour))
-             console.log(drakes_tour.resultsPage.results.event[0].start.datetime);
-             console.log(drakes_tour.resultsPage.results.event[0].venue.displayName);
-             console.log(drakes_tour.resultsPage.results.event[0].location);
-
+             tour_date = drakes_tour.resultsPage.results.event[0].start.datetime;
+             tour_name = drakes_tour.resultsPage.results.event[0].venue.displayName;
+             tour_location = drakes_tour.resultsPage.results.event[0].location.city;
              });
           }
 
-  var req = http.request(options, callback);
+    var req = http.request(options, callback).end();
 
-    req.write('Concert Location');
-    req.end();
+    screen_string = tour_date +'<br>' + tour_name + '<br>' + tour_location;
+    response2.send(screen_string)
 
    });
-
-
-
 
 app.listen(app.get('port'), function() {
 console.log("Node app is running at localhost:" + app.get('port'));
