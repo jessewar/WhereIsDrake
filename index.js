@@ -14,17 +14,24 @@ var twitter = new twit({
 app.set('port', (process.env.PORT || 5000));
 //app.use(express.static(__dirname + '/public'));
 
+//Start of twitter api request using the twit package
+var latest_tweet = '';
+var twitter_data = '';
 app.get('/twitter', function(request, response) {
-  response.send('Hello World!');
-	twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 10 }, function(err, data) {
+	twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 1 }, function(err, data) {
     if (err) { console.log(err); }
-    console.log(data);
-    console.log(process.env.PORT);
+    twitter_data = data[0]
+    console.log(twitter_data.id)
+    latest_tweet += twitter_data.user.name + '<br>';
+    latest_tweet += 'Text: ' + twitter_data.text + '<br>';
+    latest_tweet += 'Retweet Count: ' + twitter_data.retweet_count + '<br>';
+    latest_tweet += 'Favorite Count: ' + twitter_data.favorite_count + '<br>';
   });
 
-
+response.send(latest_tweet)
 });
 
+//Start of songkick api requests. Enpoint set at /concert to print out drake's next concert location to the screen
   var options = {
         host: 'api.songkick.com',
         path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
