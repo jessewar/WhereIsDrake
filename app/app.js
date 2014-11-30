@@ -5,7 +5,8 @@ console.log('I am listening to this port: http://localhost:%s', PORT_LISTENER);
 
 var express = require('express'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    twit = require('twit');
 
 var appConfig = require('./config/appConfig.json');
 
@@ -15,14 +16,6 @@ var app = express();
 app.set('port', process.env.PORT || PORT_LISTENER);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.logger('dev'));
-app.use(express.bodyParser({ keepExtensions: true, uploadDir: path.join(__dirname, appConfig.directories.publicDir) }));
-app.use(express.methodOverride());
-app.use(express.cookieParser('my v3ry s3cr3t C00k1e k3y d0nt y0u th1nk?'));
-app.use(express.session({
-    secret: 'my l1ttl3 s3cret s3ss10n k3y isnt it?',
-    maxAge: 3600000
-}));
 
 
 var twitter = new twit({
@@ -87,7 +80,6 @@ function songkick_request(response2){
 //routes
 require('./routes/index')(app);
 
-app.use(app.router);
 app.use(express.static(path.join(__dirname, appConfig.directories.publicDir)));
 
 app.use(function (req, res, next) {
@@ -95,13 +87,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-// development only
-if ('development' === app.get('env')) {
-    app.use(express.errorHandler());
-}
-
 // Start listening
-http.createServer(app).listen(app.get('port'), function () {
+app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
