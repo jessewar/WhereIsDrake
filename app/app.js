@@ -40,13 +40,11 @@ var twitter = new twit({
 
 
 app.set('port', (process.env.PORT || 5000));
-//app.use(express.static(__dirname + '/public'));
 
 //Start of twitter api request using the twit package
 app.get('/twitter', function(request, response) {
       twitter_request(response);
   });
-
 
 function twitter_request(response){
 var latest_tweet = '';
@@ -61,8 +59,6 @@ twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 1 }, functi
     response.send(latest_tweet)
   })
 }
-
-
 
 //Start of songkick api requests. Enpoint set at /concert to print out drake's next concert location to the screen
 app.get('/concert', function(req2,response2) {
@@ -93,12 +89,10 @@ function songkick_request(response2){
              response2.send(screen_string)
              });
           }
-
     var req = http.request(options, callback).end()  
 }
 
-
+// Start listening
 app.listen(app.get('port'), function() {
 console.log("Node app is running at localhost:" + app.get('port'));
 });
-
