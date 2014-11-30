@@ -43,42 +43,49 @@ app.set('port', (process.env.PORT || 5000));
 //app.use(express.static(__dirname + '/public'));
 
 //Start of twitter api request using the twit package
-var latest_tweet = '';
-var twitter_data = '';
 app.get('/twitter', function(request, response) {
-	twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 1 }, function(err, data) {
+      twitter_request(response);
+  });
+
+
+function twitter_request(response){
+var latest_tweet = '';
+var twitter_data = ''  
+twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 1 }, function(err, data) {
     if (err) { console.log(err); }
     twitter_data = data[0]
-    console.log(twitter_data.id)
     latest_tweet += twitter_data.user.name + '<br>';
     latest_tweet += 'Text: ' + twitter_data.text + '<br>';
     latest_tweet += 'Retweet Count: ' + twitter_data.retweet_count + '<br>';
     latest_tweet += 'Favorite Count: ' + twitter_data.favorite_count + '<br>';
     response.send(latest_tweet)
-  });
+  })
+}
 
-});
+
 
 //Start of songkick api requests. Enpoint set at /concert to print out drake's next concert location to the screen
-  var options = {
-        host: 'api.songkick.com',
-        path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
-          };
-  var drakes_tour ='';
-var tour_date = '';
-var tour_name = '';
-var tour_location = '';
-
 app.get('/concert', function(req2,response2) {
-     
+     songkick_request(response2);
+   });
+
+function songkick_request(response2){
+  var tour_date = '';
+  var tour_name = '';
+  var tour_location = '';
+  var drakes_tour ='';
+  var options = {
+    host: 'api.songkick.com',
+    path: '/api/3.0/artists/556955/calendar.json?apikey=FwEOoqWHci4hrxuW'
+      };
    callback = function(response) {
         response.on('data', function (chunk) {
               drakes_tour+= chunk;
         });
 
         response.on('end', function () {
-        	drakes_tour = JSON.parse(drakes_tour)
-        	//console.log(JSON.parse(drakes_tour))
+          drakes_tour = JSON.parse(drakes_tour)
+          //console.log(JSON.parse(drakes_tour))
              tour_date = drakes_tour.resultsPage.results.event[0].start.datetime;
              tour_name = drakes_tour.resultsPage.results.event[0].venue.displayName;
              tour_location = drakes_tour.resultsPage.results.event[0].location.city;
@@ -87,11 +94,9 @@ app.get('/concert', function(req2,response2) {
              });
           }
 
-    var req = http.request(options, callback).end();
+    var req = http.request(options, callback).end()  
+}
 
-
-
-   });
 
 app.listen(app.get('port'), function() {
 console.log("Node app is running at localhost:" + app.get('port'));
