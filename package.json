@@ -1,18 +1,36 @@
 {
-  "name": "WhereIsDrake",
-  "description": "A application that allows you to find out where Drake is at all times",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "express": "~4.9.x"
-  },
-  "engines": {
-    "node": "0.10.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jessewar/WhereIsDrake"
-  }
+    "name": "WhereIsDrake",
+    "description": "A application that allows you to find out where Drake is at all times",
+    "private": "true",
+    "main": "index.js",
+    "scripts": {
+        "start": "grunt"
+    },
+    "dependencies": {
+        "express": "~4.9.x",
+        "grunt": "~0.4.1",
+        "jade": "*",
+        "nib": "*",
+        "stylus": "^0.49.3",
+        "twit": "1.1.18",
+        "googleapis": "~0.4.3",
+        "matchdep": "~0.1.2"
+    },
+    "devDependencies": {
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt-contrib-connect": "~0.3.0",
+        "grunt-contrib-copy": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.2",
+        "grunt-contrib-watch": "~0.5.1",
+        "grunt-open": "~0.2.2",
+        "grunt-nodemon": "~0.1.0",
+        "grunt-markdown": "~0.4.0"
+    },
+    "engines": {
+        "node": "0.10.x"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https: //github.com/jessewar/WhereIsDrake"
+    }
 }
