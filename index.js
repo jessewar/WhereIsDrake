@@ -54,9 +54,9 @@ app.get('/twitter', function(request, response) {
     latest_tweet += 'Text: ' + twitter_data.text + '<br>';
     latest_tweet += 'Retweet Count: ' + twitter_data.retweet_count + '<br>';
     latest_tweet += 'Favorite Count: ' + twitter_data.favorite_count + '<br>';
+    response.send(latest_tweet)
   });
 
-response.send(latest_tweet)
 });
 
 //Start of songkick api requests. Enpoint set at /concert to print out drake's next concert location to the screen
@@ -82,13 +82,14 @@ app.get('/concert', function(req2,response2) {
              tour_date = drakes_tour.resultsPage.results.event[0].start.datetime;
              tour_name = drakes_tour.resultsPage.results.event[0].venue.displayName;
              tour_location = drakes_tour.resultsPage.results.event[0].location.city;
+             screen_string = tour_date +'<br>' + tour_name + '<br>' + tour_location;
+             response2.send(screen_string)
              });
           }
 
     var req = http.request(options, callback).end();
 
-    screen_string = tour_date +'<br>' + tour_name + '<br>' + tour_location;
-    response2.send(screen_string)
+
 
    });
 
