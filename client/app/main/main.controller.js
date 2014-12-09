@@ -20,3 +20,8 @@ angular.module('whereisdrakeApp')
       $http.delete('/api/things/' + thing._id);
     };
   });
+
+// angular.module('twitter', [])
+//   .controller('TwitterController', function($scope) {
+//     $scope.text = 'Hello';
+//   });

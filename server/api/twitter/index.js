@@ -5,6 +5,6 @@ var controller = require('./twitter.controller');
 
 var router = express.Router();
 
-router.get('/twitter', controller.index);
+router.get('/', controller.index);  // '/' refers to 'api/twitter/' here
 
 module.exports = router;
