@@ -2,7 +2,7 @@ div(ng-include='"components/navbar/navbar.html"')
 
 header#banner.hero-unit
   .container
-    h1 'Allo, 'Allo!
+    h1 'Allo, 'Allo! {{drake}}
     p.lead Kick-start your next web app with Angular Fullstack
     img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
 
@@ -24,4 +24,4 @@ footer.footer
       = ' | '
       a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
 div(ng-controller='TwitterController')
-  .container= text
+  h1.container {{drake}}

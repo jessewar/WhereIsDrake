@@ -8,6 +8,11 @@ angular.module('whereisdrakeApp')
       $scope.awesomeThings = awesomeThings;
     });
 
+    // $scope.drake = {};
+    // $http.get('/api/twitter').success(function(data) {
+    //   $scope.drake = data;
+    // });
+
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;
@@ -21,7 +26,14 @@ angular.module('whereisdrakeApp')
     };
   });
 
-// angular.module('twitter', [])
-//   .controller('TwitterController', function($scope) {
-//     $scope.text = 'Hello';
-//   });
+angular.module('whereisdrakeApp')
+  .controller('TwitterController', function($scope, $http) {
+    $scope.drake = {'hello': 'world'};
+    $http.get('/api/twitter').
+      success(function(data) {
+        $scope.drake = data;
+      }).
+      error(function(data) {
+        $scope.drake = {'hello': 'error'};
+      });
+  });

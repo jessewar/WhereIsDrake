@@ -7,4 +7,9 @@ angular.module('whereisdrakeApp')
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       });
+      // .when('/twitter', {
+      // 	templateUrl: 'Hello',
+      	// controller: 'TwitterController'
+      //});
+
   });
