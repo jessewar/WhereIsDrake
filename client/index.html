@@ -58,14 +58,16 @@
     <!-- endbuild -->
 
         <!-- My added files -->
-        <script src="app/twitter/twitter.controller.js"></script>
+        <script src="app/api_data/twitter.controller.js"></script>
+        <script src="app/api_data/songkick.controller.js"></script>
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/api_data/songkick.controller.js"></script>
+          <script src="app/api_data/twitter.controller.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
-          <script src="app/twitter/twitter.controller.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <!-- endinjector -->

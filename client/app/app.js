@@ -6,7 +6,8 @@ angular.module('whereisdrakeApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'twitter'
+  'twitter',
+  'songkick'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
