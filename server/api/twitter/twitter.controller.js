@@ -12,11 +12,6 @@ exports.index = function(req, res) {
 	twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 1 }, function(err, data) {
 		if (err) { console.log(err); }
 		var twitter_data = data[0];
-		console.log(twitter_data);	
-		// latest_tweet += twitter_data.user.name + '<br>';
-		// latest_tweet += 'Text: ' + twitter_data.text + '<br>';
-		// latest_tweet += 'Retweet Count: ' + twitter_data.retweet_count + '<br>';
-		// latest_tweet += 'Favorite Count: ' + twitter_data.favorite_count + '<br>';
 		res.send(twitter_data);
     });
 }

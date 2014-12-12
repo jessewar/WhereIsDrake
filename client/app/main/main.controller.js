@@ -7,12 +7,7 @@ angular.module('whereisdrakeApp')
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
     });
-
-    // $scope.drake = {};
-    // $http.get('/api/twitter').success(function(data) {
-    //   $scope.drake = data;
-    // });
-
+    
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;
