@@ -23,3 +23,32 @@ exports.index = function(req, res) {
   }
   var req = http.request(options, callback).end()  
 }
+
+function find_artist_id(artist_name,api_key){
+ 
+  var id_options = {
+ host:'api.songkick.com',
+ path: '/api/3.0/search/artists.json?query=' + artist_name + '&apikey=' + api_key
+  }  
+
+var data = '';
+
+ var callback = function (res_songkick) {
+    res_songkick.on('data', function (chunk) {
+       data += chunk;
+    });
+
+    res_songkick.on('end', function(){
+      data = JSON.parse(data);
+      console.log(data.resultsPage.results.artist[0])
+    })
+
+  }
+
+var req = http.request(id_options, callback).end()
+
+}
+
+var api_key = 'FwEOoqWHci4hrxuW';
+
+console.log(find_artist_id('Drake',api_key))

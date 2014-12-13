@@ -11,7 +11,17 @@ var twitter = new twit({
 exports.index = function(req, res) {
 	twitter.get('statuses/user_timeline', { screen_name: 'Drake', count: 1 }, function(err, data) {
 		if (err) { console.log(err); }
-		var twitter_data = data[0];
-		res.send(twitter_data);
+		var drake_data = data[0];
+		res.send(drake_data);
     });
+}
+
+var twitter_usernames = ['Drake', 'YoungMoneySite'];
+
+function get_tweets_from_username(username){
+twitter.get('statuses/user_timeline', { screen_name: username, count:10, function(err,data){
+ 		if (err) console.log(err); }
+ 		var user_tweets = data[0];
+ 	}
+ })
 }
