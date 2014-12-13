@@ -1,7 +1,10 @@
 var moment = require('moment')
-var data = get_data();
 
-check_matching_locations(data,1)
+var data = get_data();
+data = get_time_differentials(data);
+transformed_data = transform_data_to_probability(data)
+console.log(transformed_data)
+//check_matching_locations(data,1)
 
 // console.log(data)
 // console.log(moment().subtract(1,'days').calendar())
@@ -9,40 +12,44 @@ check_matching_locations(data,1)
 // console.log(Math.min(-1,2))
 
 function get_data(){
+	// Key = hash prefix + date
+
+	var array_data = [[1412091200, 101.32, 166.5, 0.43],
+					  [1412081200, 101.32, 160.5, 0.2]];
+
+
 	var data = { 
-			"787512":{"location": [101.32, 160.5],"confidence": 0.43},
+			"1412091200":{"location": [101.32, 160.5],"confidence": 0.43},
 
-			"787513":{"location":[101.32,160.5],"confidence":0.2}
-	}
-	return data
+			"1412081200":{"location":[101.32,160.5],"confidence":0.2}
+	};
+
+	return array_data
 };
 
 
-function check_matching_locations(data,radius_threshold){
-	// Method to check data for matching locations within a radius.
-	// Each data piece is assigned a location_var field with the
-	// corresponding location.
-	var distance = 0;
-	for (var namei in data) {
-    	for (var namej in data) {
-    		if (namei == namej){continue};
-    		distance = Math.sqrt(Math.pow(data[namei].location[0]-data[namej].location[0],2) + Math.pow(data[namei].location[1]-data[namej].location[1],2))
-    		if (distance < radius_threshold){
-    			// Add location_var to data, return data
-    		}
-    	}
-    }
-};
-
-function get_time_differentials(){
-	// Method to compare dates to cpu time and to each other. 
+function get_time_differentials(data){
+	// Method to compare dates to cpu time 
 	// Future data outside of threshold will be trashed.
+	// delta(t) * 0.01
+	var current_time = moment().format('YYMMDDhhmm');
+	
+	for (var piece in data){
+	data[piece][0] = current_time - data[piece][0];
+	}
+
+	return data
+
 };
 
-function compute_probabilities(){
-	// Method will consume data and compute
-	// the probability at each independent location
-	// P(A) = e^-t*P(B1)^2 + e^-t*P(B2)^2 - e^-t*P(C1)^2
-	// This needs to compare each location to within a radius threshold
-	// Any "future" data within a threshhold will be treated as current
+function transform_data_to_probability(data){
+	var output = [];
+	for (var i in data){
+		ki = 0.00001;
+		prob = data[i][3] * Math.exp(-1 * data[i][0] * ki)
+		radius = (1/data[i][3]) * Math.exp(data[i][0] * ki);
+		output.push([data[i][1],data[i][2],prob,radius])
+	}
+	return output
 };
+
