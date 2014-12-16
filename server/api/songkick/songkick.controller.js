@@ -23,3 +23,42 @@ exports.index = function(req, res) {
   }
   var req = http.request(options, callback).end()  
 }
+
+
+var request = require("request");
+ songkick_module()
+
+function songkick_module() {
+
+var api_key = 'FwEOoqWHci4hrxuW';
+var artists_of_interest = ['Drake', 'NickiMinaj', 'LilWayne', 'Tyga'];
+var artist_data = [];
+
+find_all_artist_ids(artists_of_interest,api_key)
+
+}
+
+function find_all_artist_ids(artists_of_interest,api_key){
+  var artist_data = [];
+  for (var artist in artists_of_interest){
+     var artist_name =artists_of_interest[artist];
+     artist_data.push(find_artist_info(artist_name,api_key))
+  }
+  
+};
+
+function find_artist_info(artist_name,api_key){
+
+request({
+  uri: "http://api.songkick.com/api/3.0/search/artists.json?query=" + artist_name + '&apikey=' + api_key,
+  method: "GET"
+}, function(error, response, data) {
+  
+  data = JSON.parse(data)
+  data = data.resultsPage.results.artist[0]
+
+  console.log(data)
+  return(data);
+});
+ 
+}
