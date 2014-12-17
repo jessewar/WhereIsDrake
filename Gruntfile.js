@@ -168,7 +168,9 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*',
             '!<%= yeoman.dist %>/.openshift',
-            '!<%= yeoman.dist %>/Procfile'
+            '!<%= yeoman.dist %>/Procfile',
+            '!<%= yeoman.dist %>/package.json',
+            '!<%= yeoman.dist %>/node_modules'
           ]
         }]
       },
@@ -393,10 +395,11 @@ module.exports = function (grunt) {
         connectCommits: false,
         message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
       },
-      heroku: {
+      stagingheroku: {
         options: {
-          remote: 'heroku',
-          branch: 'master'
+          remote: 'git@heroku.com:whereisdrake-staging.git',
+          branch: 'staging',
+	  remoteBranch: 'master'
         }
       },
       openshift: {
