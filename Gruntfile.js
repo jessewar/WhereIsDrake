@@ -398,7 +398,7 @@ module.exports = function (grunt) {
       heroku: {
         options: {
           remote: 'git@heroku.com:whereisdrake.git',
-          branch: 'master'
+          branch: 'master'  // master branch of 'dist/.git' repo
         }
       },
       openshift: {
