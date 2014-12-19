@@ -397,7 +397,7 @@ module.exports = function (grunt) {
       },
       heroku: {
         options: {
-          remote: 'git@heroku.com:whereisdrake.git',
+          remote: 'git@heroku.com:whereisdrake-staging.git',
           branch: 'master'  // master branch of 'dist/.git' repo
         }
       },
