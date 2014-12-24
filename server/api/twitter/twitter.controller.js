@@ -16,12 +16,12 @@ exports.index = function(req, res) {
     });
 }
 
-var twitter_usernames = ['Drake', 'YoungMoneySite'];
+// var twitter_usernames = ['Drake', 'YoungMoneySite'];
 
-function get_tweets_from_username(username){
-twitter.get('statuses/user_timeline', { screen_name: username, count:10, function(err,data){
- 		if (err) console.log(err); }
- 		var user_tweets = data[0];
- 	}
- })
-}
+// function get_tweets_from_username(username){
+// twitter.get('statuses/user_timeline', { screen_name: username, count:10, function(err,data){
+//  		if (err) console.log(err); }
+//  		var user_tweets = data[0];
+//  	}
+//  })
+// }
