@@ -5,7 +5,11 @@ angular.module('whereisdrakeApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
-    }];
+    },
+     {
+      'title': 'Map',
+      'link': '/map'
+     }];
 
     $scope.isCollapsed = true;
 

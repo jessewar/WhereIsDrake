@@ -22,7 +22,15 @@
     "serve-favicon": "~2.0.1",
     "twit": "~1.1.18",
     "connect-livereload": "~0.4.0",
-    "wait.for": "^0.6.6"
+    "wait.for": "^0.6.6",
+    "imagemin-gifsicle": "~4.0.0",
+    "imagemin-jpegtran": "~4.0.0",
+    "imagemin-optipng": "~4.0.0",
+    "imagemin-pngquant": "~4.0.0",
+    "postcss": "~3.0.7",
+    "autoprefixer": "~4.0.0",
+    "hooker": "~0.2.3",
+    "jshint": "~2.5.11"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
@@ -55,7 +63,7 @@
     "grunt-karma": "~0.8.2",
     "grunt-build-control": "DaftMonk/grunt-build-control",
     "grunt-mocha-test": "~0.10.2",
-    "grunt-contrib-sass": "^0.7.3",
+    "grunt-contrib-sass": "~0.8.1",
     "jit-grunt": "^0.5.0",
     "time-grunt": "~0.3.1",
     "grunt-express-server": "~0.4.17",

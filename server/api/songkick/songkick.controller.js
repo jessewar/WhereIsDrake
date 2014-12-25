@@ -14,11 +14,12 @@ exports.index = function(req, res) {
     });
     res_songkick.on('end', function() {
       var drakes_tour = JSON.parse(drakes_tour_str);
+      var closest_event = drakes_tour.resultsPage.results.event[0];
       var tour_date = drakes_tour.resultsPage.results.event[0].start.datetime;
       var tour_name = drakes_tour.resultsPage.results.event[0].venue.displayName;
       var tour_location = drakes_tour.resultsPage.results.event[0].location.city;
       var screen_string = tour_date +'<br>' + tour_name + '<br>' + tour_location;
-      res.send(screen_string)
+      res.send(closest_event)
     });
   }
   var req = http.request(options, callback).end()  

@@ -1,11 +1,9 @@
 div(ng-include='"components/navbar/navbar.html"')
-div(ng-controller='SongkickController')
-  h1.container {{songkick}}
+  h1.container
 
 header#banner.hero-unit
   .container
-    h1 'Allo, 'Allo! {{drake}}
-    p.lead Kick-start your next web app with Angular Fullstack
+    h1 'Allo, 'Allo!
     img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
 
 .container
@@ -16,14 +14,12 @@ header#banner.hero-unit
         li
           a(href='#', tooltip='{{thing.info}}')
             | {{thing.name}}
+ 
 
-footer.footer
-  .container
-    p
-      | Angular Fullstack v2.0.13
-      = ' | '
-      a(href='https://twitter.com/tyhenkel') @tyhenkel
-      = ' | '
-      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
-div(ng-controller='TwitterController')
-  h1.container {{drake}}
+//div(ng-controller='TwitterController')
+//       {{drake}}
+div(ng-controller='SongkickController')
+       {{songkick.venue.lat}}
+       {{songkick.venue.lng}}
+  h1.container
+
