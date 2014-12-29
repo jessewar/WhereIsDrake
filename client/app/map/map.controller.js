@@ -32,7 +32,7 @@ angular.module('whereisdrakeApp')
        var coordinates =  new google.maps.LatLng(data.venue.lat,data.venue.lng);
 
       var image = {
-        url: 'http://images4.fanpop.com/image/photos/15000000/drake-drake-15037884-75-75.jpg',
+        url: '/assets/images/drake.jpg',
         size: new google.maps.Size(100,100)
       } 
 
