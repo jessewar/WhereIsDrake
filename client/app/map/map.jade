@@ -1,15 +1,5 @@
 div(ng-include='"components/navbar/navbar.html"')
-  h1.container
 
 div(ng-controller='MapCtrl')  
-  {{songkick}}
 
-
-.map_canvas
-
-.searchBar
-button#Black(
-  type='submit'
-  style='width: 25px; height: 25px; background-color: black;'
-  onclick="searchInitiate()"
-)
+#map

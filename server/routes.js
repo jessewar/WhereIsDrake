@@ -21,4 +21,8 @@ module.exports = function(app) {
   app.get('/', function(req, res) {
     res.sendfile(app.get('appPath') + '/index.html');
   });
+
+  app.get('/map', function(req, res) {
+    res.sendfile(app.get('appPath') + '/index.html');
+  });
 };
