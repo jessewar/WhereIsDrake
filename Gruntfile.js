@@ -401,6 +401,12 @@ module.exports = function (grunt) {
           branch: 'master'  // master branch of 'dist/.git' repo
         }
       },
+      heroku_staging: {
+        options : {
+          remote: 'https://git.heroku.com/whereisdrake-staging.git',
+          branch: 'staging'
+        }
+      }
       openshift: {
         options: {
           remote: 'openshift',
