@@ -30,19 +30,40 @@ angular.module('whereisdrakeApp')
 
    function update_center(data){
        var coordinates =  new google.maps.LatLng(data.venue.lat,data.venue.lng);
+
+      var image = {
+        url: 'http://images4.fanpop.com/image/photos/15000000/drake-drake-15037884-75-75.jpg',
+        size: new google.maps.Size(100,100)
+      } 
+
        if (typeof $scope.myMap !== 'undefined'){
           $scope.myMap.panTo(coordinates);
           setTimeout(function() {$scope.myMap.setZoom(4)},1500);
           setTimeout(function() {$scope.myMap.setZoom(6)},2000);
-          setTimeout(function() {$scope.myMap.setZoom(8)},2500);
-          setTimeout(function() {$scope.myMap.setZoom(10)},3000);
-          setTimeout(function() {$scope.myMap.setZoom(12)},3500);
-          setTimeout(function() {$scope.myMap.setZoom(15)},4000);
-          setTimeout(function() {$scope.myMap.setZoom(17)},4200);
+          setTimeout(function() {$scope.myMap.setZoom(12)},2500);
+          setTimeout(function() {$scope.myMap.setZoom(15)},3000);
+          setTimeout(function() {$scope.myMap.setZoom(18)},3200);
+
+          setTimeout(function() {
+
+            var marker = new google.maps.Marker({
+              map: $scope.myMap,
+              position: coordinates,
+              animation: google.maps.Animation.DROP,
+              title: data.displayName,
+              icon: image
+              });
+
+            var infoWindow = new google.maps.InfoWindow();
+            infoWindow.setContent( data.displayName);
+            infoWindow.open($scope.myMap,marker);
+
+          }, 3300);
+        
+        }
 
        }
-      };
-
   });
+
 
 

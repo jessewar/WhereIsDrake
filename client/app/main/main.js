@@ -3,7 +3,7 @@
 angular.module('whereisdrakeApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/home', {
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       });
