@@ -7,7 +7,9 @@ angular.module('whereisdrakeApp', [
   'ngRoute',
   'ui.bootstrap',
   'twitter',
-  'songkick'
+  'songkick',
+  'ui.map', 
+  'ui.event'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

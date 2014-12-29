@@ -1,5 +1,9 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-div(ng-controller='MapCtrl')  
 
-#map
+section#map(ng-controller='MapCtrl')
+    .map-canvas(ui-map='myMap', ui-options='mapOptions')
+
+
+{{songkick.venue.lat}}
+{{songkick.venue.lng}}
