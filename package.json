@@ -30,7 +30,8 @@
     "postcss": "~3.0.7",
     "autoprefixer": "~4.0.0",
     "hooker": "~0.2.3",
-    "jshint": "~2.5.11"
+    "jshint": "~2.5.11",
+    "bluebird": "~2.5.3"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

@@ -11,6 +11,15 @@ exports.index = function(req, res) {
   });
 };
 
+// Get a single thing
+exports.show = function(req, res) {
+  Location.findById(req.params.id, function (err, location) {
+    if(err) { return handleError(res, err); }
+    if(!location) { return res.send(404); }
+    return res.json(location);
+  });
+};
+
 // Creates a new location in the DB.
 exports.create = function(req, res) {
   Location.create(req.body, function(err, location) {
@@ -32,3 +41,19 @@ exports.update = function(req, res) {
     });
   });
 };
+
+// Deletes a thing from the DB.
+exports.destroy = function(req, res) {
+  Location.findById(req.params.id, function (err, location) {
+    if(err) { return handleError(res, err); }
+    if(!location) { return res.send(404); }
+    location.remove(function(err) {
+      if(err) { return handleError(res, err); }
+      return res.send(204);
+    });
+  });
+};
+
+function handleError(res, err) {
+  return res.send(500, err);
+}

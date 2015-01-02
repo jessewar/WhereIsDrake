@@ -4,10 +4,10 @@ angular.module('whereisdrakeApp')
   .controller('MapCtrl', function ($scope, $http) {
 
     $scope.songkick = '';
-    $http.get('/api/songkick')
+    $http.get('/api/location')
        .success(function(data) {
         $scope.songkick = data;
-        update_center(data);
+        update_center(data[0]);
     }).error(function(error) {
      $scope.songkick = error;
     });
@@ -29,7 +29,7 @@ angular.module('whereisdrakeApp')
 
 
    function update_center(data){
-       var coordinates =  new google.maps.LatLng(data.venue.lat,data.venue.lng);
+       var coordinates =  new google.maps.LatLng(data.lat,data.lng);
 
       var image = {
         url: '/assets/images/drake.png',
@@ -50,12 +50,12 @@ angular.module('whereisdrakeApp')
               map: $scope.myMap,
               position: coordinates,
               animation: google.maps.Animation.DROP,
-              title: data.displayName,
+              title: data.info,
               icon: image
               });
 
             var infoWindow = new google.maps.InfoWindow();
-            infoWindow.setContent( data.displayName);
+            infoWindow.setContent( data.info);
             infoWindow.open($scope.myMap,marker);
 
           }, 3300);
