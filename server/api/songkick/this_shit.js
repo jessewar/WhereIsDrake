@@ -51,20 +51,3 @@ var artists_of_interest = ['Drake', 'NickiMinaj', 'LilWayne', 'Tyga'];
 var api_key = 'FwEOoqWHci4hrxuW';
 var sC = new SongkickController(artists_of_interest,api_key);
 sC.find_all_artists_info();
-
-
-xmlhttp = new XMLHttpRequest();
-var url = "/api/location";
-xmlhttp.open("POST", url, true);
-xmlhttp.setRequestHeader("Content-type", "application/json");
-xmlhttp.onreadystatechange = function () { //Call a function when the state changes.
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        alert(xmlhttp.responseText);
-    }
-}
-var parameters = {
-    "lat": "myname",
-    "lng": "mypass"
-};
-// Neither was accepted when I set with parameters="username=myname"+"&password=mypass" as the server may not accept that
-xmlhttp.send(JSON.stringify(parameters));

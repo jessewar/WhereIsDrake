@@ -16,13 +16,13 @@ angular.module('whereisdrakeApp')
               center: new google.maps.LatLng(0,0),
               zoom: 2,
               mapTypeId: google.maps.MapTypeId.SATELLITE,
-              scrollwheel: false,
+              scrollwheel: true,
               scaleControl: false,
               mapTypeControl: false,
-              draggable: false,
+              draggable: true,
               navigationControl: false,
               streetViewControl: false,
-              zoomControl: false,
+              zoomControl: true,
               disableDefaultUI: true
             };
 
@@ -38,12 +38,15 @@ angular.module('whereisdrakeApp')
 
        if (typeof $scope.myMap !== 'undefined'){
           $scope.myMap.panTo(coordinates);
-          setTimeout(function() {$scope.myMap.setZoom(4)},1500);
-          setTimeout(function() {$scope.myMap.setZoom(6)},2000);
-          setTimeout(function() {$scope.myMap.setZoom(12)},2500);
-          setTimeout(function() {$scope.myMap.setZoom(15)},3000);
-          setTimeout(function() {$scope.myMap.setZoom(18)},3200);
-
+          setTimeout(function() {$scope.myMap.setZoom(4)},1000);
+          setTimeout(function() {$scope.myMap.setZoom(6)},1200);
+          setTimeout(function() {$scope.myMap.setZoom(8)},1400);
+          setTimeout(function() {$scope.myMap.setZoom(10)},1600);
+          setTimeout(function() {$scope.myMap.setZoom(11)},1800);
+          setTimeout(function() {$scope.myMap.setZoom(12)},2000);
+          setTimeout(function() {$scope.myMap.setZoom(13)},2200);
+          setTimeout(function() {$scope.myMap.setZoom(14)},2400);
+          setTimeout(function() {$scope.myMap.setZoom(15)},2700);
           setTimeout(function() {
 
             var marker = new google.maps.Marker({
@@ -58,7 +61,7 @@ angular.module('whereisdrakeApp')
             infoWindow.setContent( data.info);
             infoWindow.open($scope.myMap,marker);
 
-          }, 3300);
+          }, 2800);
         
         }
 
