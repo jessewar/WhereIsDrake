@@ -12,56 +12,153 @@ angular.module('whereisdrakeApp')
      $scope.songkick = error;
     });
 
+    var styles = [
+        {
+            "featureType": "all",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "invert_lightness": true
+                },
+                {
+                    "hue": "#435158"
+                },
+                {
+                    "saturation": 10
+                },
+                {
+                    "lightness": 30
+                },
+                {
+                    "gamma": 0.5
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.province",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.locality",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.neighborhood",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#000000"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "weight": "0.16"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+                {
+                    "weight": "0.58"
+                }
+            ]
+        }
+    
+    ];
+
+
  $scope.mapOptions = {
               center: new google.maps.LatLng(0,0),
-              zoom: 2,
-              mapTypeId: google.maps.MapTypeId.SATELLITE,
+              zoom: 3,
               scrollwheel: true,
-              scaleControl: false,
+              scaleControl: true,
               mapTypeControl: false,
               draggable: true,
               navigationControl: false,
               streetViewControl: false,
               zoomControl: true,
-              disableDefaultUI: true
+              disableDefaultUI: true,
+              style: styles
             };
 
+  function place_markers(data) {
 
+  }
 
-   function update_center(data){
+   function update_center(data) {
        var coordinates =  new google.maps.LatLng(data.lat,data.lng);
-
-      var image = {
-        url: '/assets/images/drake.png',
-        size: new google.maps.Size(100,100)
-      } 
 
        if (typeof $scope.myMap !== 'undefined'){
           $scope.myMap.panTo(coordinates);
-          setTimeout(function() {$scope.myMap.setZoom(4)},1000);
-          setTimeout(function() {$scope.myMap.setZoom(6)},1200);
-          setTimeout(function() {$scope.myMap.setZoom(8)},1400);
-          setTimeout(function() {$scope.myMap.setZoom(10)},1600);
-          setTimeout(function() {$scope.myMap.setZoom(11)},1800);
-          setTimeout(function() {$scope.myMap.setZoom(12)},2000);
-          setTimeout(function() {$scope.myMap.setZoom(13)},2200);
-          setTimeout(function() {$scope.myMap.setZoom(14)},2400);
-          setTimeout(function() {$scope.myMap.setZoom(15)},2700);
+          // setTimeout(function() {$scope.myMap.setZoom(15)},1000);
+
           setTimeout(function() {
+                var drakeCircle = new google.maps.Circle({
+                center: coordinates,
+                strokeColor: 'black',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'blue',
+                fillOpacity: 0.15,
+                radius: 100000,
+                map: $scope.myMap
+                });
 
-            var marker = new google.maps.Marker({
-              map: $scope.myMap,
-              position: coordinates,
-              animation: google.maps.Animation.DROP,
-              title: data.info,
-              icon: image
+                var drakeMarker = new google.maps.Marker( {
+                position: coordinates,
+                animation: google.maps.Animation.BOUNCE,
+                labelContent: data.info + '<br>' + data.city,
+                map: $scope.myMap,
+                icon: {
+                  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                  scale: 3,
+                  strokeWeight: 1.5,
+                  fillOpacity: 1,
+                  fillColor: 'white'
+                }
+                });  
+
+            var infoWindow = new google.maps.InfoWindow({
+              position:coordinates,
               });
-
-            var infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent( data.info + '<br>' + data.city);
-            infoWindow.open($scope.myMap,marker);
+            infoWindow.open($scope.myMap,drakeMarker);
 
-          }, 2800);
+          }, 500);
         
         }
 
