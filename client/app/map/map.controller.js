@@ -58,7 +58,7 @@ angular.module('whereisdrakeApp')
               });
 
             var infoWindow = new google.maps.InfoWindow();
-            infoWindow.setContent( data.info);
+            infoWindow.setContent( data.info + '<br>' + data.city);
             infoWindow.open($scope.myMap,marker);
 
           }, 2800);

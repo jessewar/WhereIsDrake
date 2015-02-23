@@ -35,14 +35,17 @@ var Promise = require("bluebird");
 var request = Promise.promisify(require("request"));
 
 function seed_location(data){
-  Location.find({}).remove(function() {
-      Location.create({
+  Location.findOne({ 'info': data.displayName }, function (err, location) {
+    if (err || location == null) {Location.create({
         lat:data.venue.lat,
         lng:data.venue.lng,
-        info:data.displayName
+        info:data.displayName,
+        city: data.location.city
       });
+      }
   });
 }
+
 
 function sk_request(artist_id,api_key){
 
