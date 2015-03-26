@@ -10,12 +10,13 @@ var Promise = require("bluebird");
 var request = Promise.promisify(require("request"));
 
 function seed_location(data){
-  Location.findOne({ 'info': data.displayName }, function (err, location) {
+  Location.findOne({ 'start_date': data.start.date }, function (err, location) {
     if (err || location == null) {Location.create({
         lat:data.venue.lat,
         lng:data.venue.lng,
         info:data.displayName,
-        city: data.location.city
+        city: data.location.city,
+        start_date: data.start.date
       });
       }
   });

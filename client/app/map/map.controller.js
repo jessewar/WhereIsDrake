@@ -7,7 +7,9 @@ angular.module('whereisdrakeApp')
     $http.get('/api/location')
        .success(function(data) {
         $scope.songkick = data;
-        update_center(data[0]);
+        updateCenter(data[data.length -1]);
+        addHistory(data[data.length -2]);
+        drawArrow(data[data.length-2], data[data.length -1]);
     }).error(function(error) {
      $scope.songkick = error;
     });
@@ -115,11 +117,69 @@ angular.module('whereisdrakeApp')
               style: styles
             };
 
-  function place_markers(data) {
+  function drawArrow(data1, data2) {
 
+  // Define a symbol using a predefined path (an arrow)
+  // supplied by the Google Maps JavaScript API.
+  var lineSymbol = {
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+  };
+
+  // Create the polyline and add the symbol via the 'icons' property.
+
+  var lineCoordinates = [
+    new google.maps.LatLng(data1.lat,data1.lng),
+    new google.maps.LatLng(data2.lat,data2.lng)
+  ];
+
+  var line = new google.maps.Polyline({
+    path: lineCoordinates,
+    icons: [{
+      icon: lineSymbol,
+      offset: '100%'
+    }],
+    map: $scope.myMap
+  });
+}
+
+  function addHistory(data) {
+       var coordinates =  new google.maps.LatLng(data.lat,data.lng);
+          setTimeout(function() {
+                var drakeCircle = new google.maps.Circle({
+                center: coordinates,
+                strokeColor: 'black',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'blue',
+                fillOpacity: 0.15,
+                radius: 100000,
+                map: $scope.myMap
+                });
+
+                var drakeMarker = new google.maps.Marker( {
+                position: coordinates,
+                animation: google.maps.Animation.BOUNCE,
+                map: $scope.myMap,
+                icon: {
+                  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                  scale: 3,
+                  strokeWeight: 1.5,
+                  fillOpacity: 1,
+                  fillColor: 'white'
+                }
+                });  
+
+            var infoWindow = new google.maps.InfoWindow({
+              position:coordinates,
+              });
+            infoWindow.setContent( data.info + '<br>' + data.city);
+            infoWindow.open($scope.myMap,drakeMarker);
+
+          }, 500);
+        
   }
 
-   function update_center(data) {
+   function updateCenter(data) {
        var coordinates =  new google.maps.LatLng(data.lat,data.lng);
 
        if (typeof $scope.myMap !== 'undefined'){
@@ -141,7 +201,6 @@ angular.module('whereisdrakeApp')
                 var drakeMarker = new google.maps.Marker( {
                 position: coordinates,
                 animation: google.maps.Animation.BOUNCE,
-                labelContent: data.info + '<br>' + data.city,
                 map: $scope.myMap,
                 icon: {
                   path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
@@ -155,7 +214,7 @@ angular.module('whereisdrakeApp')
             var infoWindow = new google.maps.InfoWindow({
               position:coordinates,
               });
-            infoWindow.setContent( data.info + '<br>' + data.city);
+            infoWindow.setContent( data.info + '<br>' + data.city + '<br>' + data.start_date);
             infoWindow.open($scope.myMap,drakeMarker);
 
           }, 500);
